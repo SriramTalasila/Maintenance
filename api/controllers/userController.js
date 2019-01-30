@@ -79,7 +79,6 @@ exports.student_create = (req, res, next) => {
 
 exports.send_mail = (req, res, next) => {
   User.findOne({ username: req.body.username }, function (err, docs) {
-    
     if (err)
       res.status(404).json({ "error": "Unable to find username" });
     else if (docs) {
@@ -116,7 +115,7 @@ exports.send_mail = (req, res, next) => {
               },
                 (error, mresult) => {
                   if (error) {
-                    res.status(500).json({ 'error': { 'message': 'Mail to send OTP' } });
+                    res.status(500).json({ 'error': { 'message': 'unable to Mail OTP' } });
                   }
                   else
                     res.status(200).json({ 'success': { 'message': 'One time password sent to your mail' } });
@@ -173,4 +172,10 @@ exports.rest_password = (req, res, next) => {
       })
     }
   });
+}
+
+exports.user_signup=(req,res,next)=>{
+  helperFun.st_create("data",(err,resu)=>{
+    console.log(res)
+  })
 }

@@ -2,8 +2,10 @@ var nodemailer = require('nodemailer');
 const config = require('../../../config');
 
 exports.send_mail = (mailData,callback)=>{
+  console.log(mailData);
     var transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port:587,
         auth: {
           user: config.dev.smtp.email,
           pass: config.dev.smtp.password
@@ -11,8 +13,8 @@ exports.send_mail = (mailData,callback)=>{
       });
       
       var mailOptions = {
-        from: config.dev.smtp.email,
-        to: mailData.email,
+        from: "ram98.sri98@gmail.com",
+        to: "ram98.sri98@gmail.com",
         subject: mailData.sub,
         html: mailData.body
       };
@@ -20,7 +22,7 @@ exports.send_mail = (mailData,callback)=>{
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
-          callback('failed to send mail',null);
+          callback(null,"sd");
         } else {
           console.log('Email sent: ' + info.response);
           callback(null,'success');

@@ -19,4 +19,8 @@ router.post('/forgotpassword',userController.send_mail);
 
 router.post('/resetpassword',userController.rest_password);
 
+
+//Route to create user
+router.post('/signup',userController.user_signup);
+
 module.exports = router;
