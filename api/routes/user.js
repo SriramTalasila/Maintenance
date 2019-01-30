@@ -9,8 +9,14 @@ const userController = require('../controllers/userController');
 router.post('/login', userController.user_login);
 // end of login route
 
-router.post('/signup',Auth,(req,res)=>{
-    res.json({"w":"e"})
-})
+// Handling bulk student creation
+router.post('/adduser',Auth,userController.student_create);
+
+// Route to send otp to mail
+router.post('/forgotpassword',userController.send_mail);
+
+// Route to reset password by verifying otp
+
+router.post('/resetpassword',userController.rest_password);
 
 module.exports = router;

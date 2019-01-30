@@ -32,6 +32,7 @@ app.use((req, res, next) => {
     next();
   });
 
+// routing the reequest to specific handler
 
 app.use('/user',UserRoutes);
 

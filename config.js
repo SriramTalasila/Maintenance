@@ -8,6 +8,10 @@ const dev = {
    host: 'localhost',
    port: 27017,
    name: 'maintenance'
+ },
+ smtp:{
+    email:'ram98.sri98@gmail.com',
+    password:'Ram@7382024589'
  }
 };
 
