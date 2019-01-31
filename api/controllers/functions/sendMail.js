@@ -14,7 +14,7 @@ exports.send_mail = (mailData,callback)=>{
       
       var mailOptions = {
         from: "ram98.sri98@gmail.com",
-        to: "ram98.sri98@gmail.com",
+        to: mailData.email,
         subject: mailData.sub,
         html: mailData.body
       };
