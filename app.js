@@ -3,13 +3,16 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require("body-parser");
 var mongoose = require('mongoose');
-const config= require('./config')
 
-const host = config.dev.db.host;
-const dbport = config.dev.db.port;
-const db = config.dev.db.name;
-mongoose.connect("mongodb://"+host+":"+dbport+"/"+db,{useNewUrlParser: true});
+mongoose.connect("mongodb+srv://ram:userram@cluster0-xnxgj.mongodb.net/maintenance?retryWrites=true",{useNewUrlParser: true});
+
 const UserRoutes = require('./api/routes/user');
+
+const AdminRoutes = require('./api/routes/adminRoutes');
+
+const StudentRoutes = require('./api/routes/studentRoutes');
+
+const staffRoutes = require('./api/routes/staffRoutes');
 
 // to log requests
 app.use(morgan('dev'));
@@ -35,6 +38,12 @@ app.use((req, res, next) => {
 // routing the reequest to specific handler
 
 app.use('/user',UserRoutes);
+
+app.use('/admin',AdminRoutes);
+
+app.use('/student',StudentRoutes);
+
+app.use('/staff',staffRoutes);
 
 
 // Handing wrong routes
