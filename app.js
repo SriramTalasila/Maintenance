@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://ram:userram@cluster0-xnxgj.mongodb.net/maintenance?retryWrites=true",{useNewUrlParser: true});
+mongoose.connect("mongodb+srv://ram:userram@cluster0-xnxgj.mongodb.net/maintenance?retryWrites=true", { useNewUrlParser: true });
 
 const UserRoutes = require('./api/routes/user');
 
@@ -14,36 +15,34 @@ const StudentRoutes = require('./api/routes/studentRoutes');
 
 const staffRoutes = require('./api/routes/staffRoutes');
 
+const otherRoutes = require('./api/routes/otherData');
+
+const studentAuth = require('./api/middleware/studentAuth');
+
+const auth = require('./api/middleware/Auth');
+
 // to log requests
 app.use(morgan('dev'));
-
+app.use(cors());
 // to parse the incoming request body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // handling cross origin resource  sharing error 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).json({});
-    }
-    next();
-  });
+
 
 // routing the reequest to specific handler
+app.use('/static', express.static('public'));   
 
-app.use('/user',UserRoutes);
+app.use('/user', UserRoutes);
 
-app.use('/admin',AdminRoutes);
+app.use('/admin', AdminRoutes);
 
-app.use('/student',StudentRoutes);
+app.use('/student',studentAuth, StudentRoutes);
 
-app.use('/staff',staffRoutes);
+app.use('/staff', auth, staffRoutes);
+
+app.use('/other', otherRoutes);
 
 
 // Handing wrong routes

@@ -5,7 +5,13 @@ const studentController = require('../controllers/studentController');
 
 router.post('/makecomplaint', studentController.make_compliant);
 
-router.delete('/cancelcomplaint',studentController.cancel_complaint);
+router.post('/cancelcomplaint',studentController.cancel_complaint);
+
+router.get('/viewcomplaints',studentController.getst_complaints);
+
+router.post('/feedback',studentController.st_feedback);
+
+router.get('/mydata',studentController.mydata);
 
 
 module.exports = router;

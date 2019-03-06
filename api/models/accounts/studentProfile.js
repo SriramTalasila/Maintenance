@@ -5,10 +5,9 @@ const studentSchema = mongoose.Schema({
     _sid:mongoose.Schema.Types.ObjectId,
     fullname:{type: String,required:true},
     rollno:{type: String,required:true},
+    phone:{type: String,required:true},
     college:mongoose.Schema.Types.ObjectId,
-    hostel:mongoose.Schema.Types.ObjectId,
-    room:{type: String,required:true}
-    
+    hostel:mongoose.Schema.Types.ObjectId
 });
 
 module.exports = mongoose.model('student', studentSchema);

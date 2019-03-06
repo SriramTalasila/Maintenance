@@ -5,7 +5,7 @@ exports.send_sms = (dataTosend) => {
         apiKey: '05de01be',
         apiSecret: 'de19912d26e10c59'
     })
-
+    console.log(dataTosend.phone);
     const from = 'Maintenance';
     const to = dataTosend.phone;
     const text = dataTosend.text

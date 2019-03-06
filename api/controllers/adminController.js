@@ -9,6 +9,10 @@ const Staff = require('../models/accounts/staffProfile');
 
 const send_mail = require('../controllers/functions/sendMail');
 
+const Complaints = require('../models/complaint');
+
+const Technicians = require('../models/technicians');
+
 //Sending mail to staff after creating account
 const sm = (stemail) => {
     send_mail.send_mail({
@@ -56,7 +60,7 @@ exports.add_hostel = (req, res, next) => {
                 });
             })
                 .catch(error => {
-                    return res.status(500).json({ err: "Failed to add new Hostel" });
+                    return res.status(500).json({ message: "Failed to add new Hostel" });
                 })
         }
         else {
@@ -70,11 +74,11 @@ exports.add_hostel = (req, res, next) => {
 
 //route to create new section  from admin
 exports.add_section = (req, res, next) => {
-    Section.findOne({ name: req.body.sname }, (er, resu) => {
+    Section.findOne({ name: req.body.name }, (er, resu) => {
         if (!resu) {
             const newSec = new Section({
                 _id: new mongoose.Types.ObjectId(),
-                name: req.body.sname
+                name: req.body.name
             });
             newSec.save().then(result => {
                 //console.log(result);
@@ -83,7 +87,7 @@ exports.add_section = (req, res, next) => {
                 });
             })
                 .catch(error => {
-                    return res.status(500).json({ err: "Failed to add new section" });
+                    return res.status(500).json({ message: "Failed to add new section" });
                 })
         }
         else {
@@ -136,6 +140,37 @@ exports.add_staff = (req, res, next) => {
         }
         else {
             return res.status(409).json({ error: { mssg: "Staff with same mail/username already exist" } });
+        }
+    })
+}
+
+exports.get_complaints = (req,res, next) => {
+    Complaints.find({},(err,result) => {
+        if(result){
+            let hstls={};
+            Hostel.find({},(er,docs)=>{
+                if(docs){
+                    docs.forEach(element => {
+                        hstls[element._id] = element.name;
+                    });
+                    Technicians.find({},(e,tdocs)=>{
+                        let techs={};
+                        if(tdocs){
+                            tdocs.forEach(element => {
+                                techs[element._id] = {"name":element.name,"phone":element.phone};
+                            });
+                            console.log(hstls);
+                            console.log(techs);
+                            return res.status(200).json({"complaints":result,"hstls":hstls,"techs":techs});
+                        }
+                    })
+                    
+                }
+            })
+            
+        }
+        if(err){
+            return res.status(500).json({error:{message:"Failed to fetch data"}});
         }
     })
 }

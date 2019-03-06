@@ -13,6 +13,7 @@ const complaintSchema = mongoose.Schema({
     technician: { type: mongoose.Schema.Types.ObjectId, default: null },
     isClosed: { type: Boolean, default: false },
     feedback:{ type: String, default:"" },
+    stufeedback:{ type: String, default:"" },
     closedon: { type: Date }
 });
 

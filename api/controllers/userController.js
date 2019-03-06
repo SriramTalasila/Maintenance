@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt-nodejs");
 const md5 = require("md5");
 const jwt = require("jsonwebtoken");
 
@@ -19,7 +18,7 @@ exports.user_login = (req, res, next) => {
     if (Usdocs) {
       console.log(req.body.password);
       console.log(Usdocs.password);
-      var hash = md5("12345678");
+      var hash = md5(req.body.password);
       console.log(hash);
       if (hash == Usdocs.password)
         console.log(hash + "  " + Usdocs.password);
@@ -28,6 +27,7 @@ exports.user_login = (req, res, next) => {
         if (Usdocs.isActive) {
           const token = jwt.sign(
             {
+              role: Usdocs.role,
               email: Usdocs.email,
               userId: Usdocs._id
             },
@@ -79,9 +79,10 @@ exports.user_signup = (req, res, next) => {
             _sid: re._id,
             fullname: req.body.fname,
             rollno: req.body.regno,
+            phone: req.body.phone,
             college: req.body.cid,
-            hostel: req.body.hid,
-            room: req.body.rm
+            hostel: req.body.hid
+            
           })
           newstProfile.save().then(r => {
             gen_tkn.gen_token({ uid: re._id, email: re.email }, (eror, reul) => {
@@ -157,9 +158,7 @@ exports.send_mail = (req, res, next) => {
             })
             .catch(err => {
               console.log(err);
-              res.status(500).json({
-                error: err
-              });
+              res.status(500).json({ 'error': { 'message': 'unable to Mail OTP' } });
             });
         }
       })
