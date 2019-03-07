@@ -81,6 +81,7 @@ exports.user_signup = (req, res, next) => {
             rollno: req.body.regno,
             phone: req.body.phone,
             college: req.body.cid,
+            gender: req.body.gender,
             hostel: req.body.hid
             
           })

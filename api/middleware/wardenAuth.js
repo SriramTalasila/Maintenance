@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(" ")[1];
         const decoded = jwt.verify(token, 'secretkey');
         console.log(decoded);
-        if(decoded.role == 'Admin'){
+        if(decoded.role == 'warden'){
             req.userData = decoded;
             next();
         }

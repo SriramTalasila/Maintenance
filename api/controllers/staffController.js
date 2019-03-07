@@ -14,7 +14,7 @@ const sendMssg = (sdata) => {
             if(hdata){
             send_sms.send_sms({
                 phone: data.phone,
-                text: "Location" + sdata.docs.location + " in " + hdata.name + " hostel" + sdata.docs.title + ""
+                text: "You are assigned to a complaint at Location" + sdata.docs.location + " in " + hdata.name + " hostel (" + sdata.docs.title + ")"
             })
             }
             else{

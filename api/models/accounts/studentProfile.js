@@ -6,6 +6,7 @@ const studentSchema = mongoose.Schema({
     fullname:{type: String,required:true},
     rollno:{type: String,required:true},
     phone:{type: String,required:true},
+    gender: String,
     college:mongoose.Schema.Types.ObjectId,
     hostel:mongoose.Schema.Types.ObjectId
 });

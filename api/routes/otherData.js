@@ -10,4 +10,6 @@ router.get('/getcolleges',dataController.get_colleges);
 router.get('/getsections',dataController.get_sections);
 router.post('/checkrole', authMidd, dataController.get_role);
 
+router.post('/getstudentdata',dataController.get_data);
+
 module.exports = router;

@@ -5,9 +5,12 @@ const morgan = require('morgan');
 const bodyParser = require("body-parser");
 var mongoose = require('mongoose');
 
+
 mongoose.connect("mongodb+srv://ram:userram@cluster0-xnxgj.mongodb.net/maintenance?retryWrites=true", { useNewUrlParser: true });
 
 const UserRoutes = require('./api/routes/user');
+
+const wardenRoutes = require('./api/routes/wardenRoutes');
 
 const AdminRoutes = require('./api/routes/adminRoutes');
 
@@ -21,6 +24,10 @@ const studentAuth = require('./api/middleware/studentAuth');
 
 const auth = require('./api/middleware/Auth');
 
+const staffAuth = require('./api/middleware/staffAuth');
+
+const wardenAuth = require('./api/middleware/wardenAuth');
+
 // to log requests
 app.use(morgan('dev'));
 app.use(cors());
@@ -32,15 +39,17 @@ app.use(bodyParser.json());
 
 
 // routing the reequest to specific handler
-app.use('/static', express.static('public'));   
+app.use('/static', express.static('public'));
 
 app.use('/user', UserRoutes);
 
-app.use('/admin', AdminRoutes);
+app.use('/admin', auth, AdminRoutes);
 
-app.use('/student',studentAuth, StudentRoutes);
+app.use('/student', studentAuth, StudentRoutes);
 
-app.use('/staff', auth, staffRoutes);
+app.use('/staff', staffAuth, staffRoutes);
+
+app.use('/warden', wardenAuth, wardenRoutes);
 
 app.use('/other', otherRoutes);
 

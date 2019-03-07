@@ -49,6 +49,11 @@ const sendIntMail = (data) => {
 }
 
 const sendMssg = (data) => {
+    Technicians.findOne({_id:data.technician},'phone',(err,tdocs)=>{
+        if(tdocs.phone){
+            sms.send_sms({'phone':tdocs.phone,'text':'Complaint canceled at location'+data.location});
+        }
+    })
 
 }
 
