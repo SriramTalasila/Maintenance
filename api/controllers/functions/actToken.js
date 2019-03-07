@@ -19,7 +19,7 @@ exports.gen_token = (userData, callback) => {
                 sendMail.send_mail({
                     email:userData.email,
                     sub:"Activation link",
-                    body:"<p>Click here to activate <a href='http://localhost:3000/user/verifymail?id="+userData.uid+"&token="+key+"'>link</a></p>"
+                    body:"<p>Click here to activate <a href='https://guarded-shore-72841.herokuapp.com/user/verifymail?id="+userData.uid+"&token="+key+"'>link</a></p>"
                 },(er,resul)=>{
                     if(resul)
                         callback(null, 'success');
