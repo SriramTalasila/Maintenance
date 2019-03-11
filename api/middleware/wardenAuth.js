@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
     try {
-        console.log("aut");
+        //console.log("aut");
         const token = req.headers.authorization.split(" ")[1];
         const decoded = jwt.verify(token, 'secretkey');
-        console.log(decoded);
+        //console.log(decoded);
         if(decoded.role == 'warden'){
             req.userData = decoded;
             next();

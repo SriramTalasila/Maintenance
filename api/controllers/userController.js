@@ -16,10 +16,10 @@ const gen_tkn = require('./functions/actToken');
 exports.user_login = (req, res, next) => {
   User.findOne({ username: req.body.username }, (err, Usdocs) => {
     if (Usdocs) {
-      console.log(req.body.password);
-      console.log(Usdocs.password);
+      //console.log(req.body.password);
+      //console.log(Usdocs.password);
       var hash = md5(req.body.password);
-      console.log(hash);
+      //console.log(hash);
       if (hash == Usdocs.password)
         console.log(hash + "  " + Usdocs.password);
       if (hash == Usdocs.password) {
@@ -64,7 +64,7 @@ exports.user_signup = (req, res, next) => {
   User.findOne({ email: req.body.email }, (er, resu) => {
     if (!resu) {
       var hash = md5(req.body.password);
-      console.log(hash);
+      //console.log(hash);
       if (hash) {
         const newUser = new User({
           _id: new mongoose.Types.ObjectId(),
@@ -117,7 +117,7 @@ exports.send_mail = (req, res, next) => {
     if (err)
       res.status(404).json({ "error": "Unable to find username" });
     else if (docs) {
-      console.log(docs._id);
+      //console.log(docs._id);
       otp.findOne({ user_id: docs._id }, function (er, otdocs) {
         if (otdocs) {
           send_mail.send_mail({
@@ -188,7 +188,7 @@ exports.rest_password = (req, res, next) => {
                 res.status(500).json({ "error": "unable to reset password" });
               }
               else {
-                console.log(up);
+                //console.log(up);
                 res.status(200).json({ "success": "Password reset successfully" });
                 otp.findOneAndDelete({ _id: otdocs._id }, (erro, dres) => { console.log('delted otp'); })
               }
@@ -209,7 +209,7 @@ exports.rest_password = (req, res, next) => {
 exports.user_verify = (req, res, next) => {
   var key = req.query.token;
   var usid = req.query.id;
-  console.log(key + "    " + usid)
+  //console.log(key + "    " + usid)
   Mailvf.findOne({ uid: usid }, (err, result) => {
     if (result) {
       User.findOneAndUpdate({ _id: usid }, { $set: { isActive: true } }, { new: true }, (err1, doc) => {

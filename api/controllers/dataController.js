@@ -30,9 +30,9 @@ exports.get_sections = (req, res, next) => {
 }
 
 exports.get_role = (req, res, next) => {
-    console.log(req.userData);
+    //console.log(req.userData);
     User.findOne({_id:req.userData.userId},'role',(err,docs)=>{
-        console.log(docs)
+        //console.log(docs)
         if(docs){
             return res.status(200).json({success:{role:docs.role}});
         }
@@ -44,7 +44,7 @@ exports.get_role = (req, res, next) => {
 
 exports.get_data = (req,res,next) => {
     var std = req.body.rollno;
-    console.log(std);
+   // console.log(std);
     Students.findOne({rollno:std},(err,sdocs)=>{
         if(sdocs){
             Parents.find({srollNo:std},(er,pdocs)=>{

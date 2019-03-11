@@ -10,8 +10,8 @@ const dev = {
    name: 'maintenance'
  },
  smtp:{
-    email:'ram98.sri98@gmail.com',
-    password:'Ram@7382024589'
+    user:'apikey',
+    password:'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'
  }
 };
 

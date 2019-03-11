@@ -160,8 +160,6 @@ exports.get_complaints = (req, res, next) => {
                             tdocs.forEach(element => {
                                 techs[element._id] = { "name": element.name, "phone": element.phone };
                             });
-                            console.log(hstls);
-                            console.log(techs);
                             return res.status(200).json({ "complaints": result, "hstls": hstls, "techs": techs });
                         }
                     })

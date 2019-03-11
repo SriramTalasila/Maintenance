@@ -9,7 +9,7 @@ const mailer = require('../controllers/functions/sendMail');
 
 const sendMssg = (sdata) => {
     Techician.findOne({ _id: sdata.techid }, 'phone', (er, data) => {
-        console.log(sdata.docs.hostel);
+        //console.log(sdata.docs.hostel);
         Hostel.findOne({ _id: sdata.docs.hostel}, (e, hdata) => {
             if(hdata){
             send_sms.send_sms({
@@ -54,7 +54,7 @@ exports.add_technician = (req, res, next) => {
             })
         }
         else {
-            console.log(err);
+            //console.log(err);
             return res.status(500).json({ error: { message: "Fail to find staff member" } });
         }
     })
@@ -62,7 +62,7 @@ exports.add_technician = (req, res, next) => {
 }
 
 exports.delete_technician = (req, res, next) => {
-   console.log(req.body.tid);
+   //console.log(req.body.tid);
     Techician.deleteOne({ _id: req.body.tid }, (err) => {
         if (err)
             return res.status(500).json({ error: { message: "failed to delete technician" } });
@@ -76,7 +76,7 @@ exports.assign_technician = (req, res, next) => {
     Complaint.findOneAndUpdate({ _id: req.body.comid }, { $set: { technician: req.body.techid, status: "Assigned a technician" } }, (er, docs) => {
         //console.log(docs);
         if (er) {
-            console.log(er);
+            //console.log(er);
             return res.status(500).json({ error: { message: "failed to assign technician" } })
         }
         else {
@@ -120,8 +120,6 @@ exports.get_complaints = (req, res, next) => {
                                 tdocs.forEach(element => {
                                     techs[element._id] = { "name": element.name, "phone": element.phone };
                                 });
-                                console.log(hstls);
-                                console.log(techs);
                                 return res.status(200).json({ "complaints": cdocs, "hstls": hstls, "techs": techs });
                             }
                         })
@@ -139,7 +137,7 @@ exports.get_complaints = (req, res, next) => {
 exports.get_technicians = (req, res, next) =>{
     staff.findOne({ _staffid: req.userData.userId }, 'section', (err, sdocs) => {
         if(sdocs){
-            Techician.find({secion:sdocs.secion}, (e, tdocs) => {
+            Techician.find({secion:sdocs.section}, (e, tdocs) => {
                 return res.status(200).json(tdocs);
             })
         }

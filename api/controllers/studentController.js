@@ -16,20 +16,21 @@ const sendToStaff = (data) => {
         sub: "A new complaint request has raised",
         body: '<h3>New Complaint</h3><p><b>Title :</b>' + data.com.title + '</p></br><p><b>Description :</b>' + data.com.description + '</p>'
     }, (err, res) => {
-        console.log(err);
+        if(err)
+            console.log(err);
         if(res)
             console.log("mail send to staff")
     })
 }
 
 const sendIntMail = (data) => {
-    console.log(data);
+    //console.log(data);
     Staff.find({ section: data.sectionid }, '_staffid', (err, docs) => {
         if (err)
             console.log(err);
         if (docs) {
             for (i = 0; i < docs.length; i++) {
-                console.log(docs[i]._staffid);
+                //console.log(docs[i]._staffid);
                 User.findOne({ _id: docs[i]._staffid }, 'email', (err, res) => {
                     sendToStaff({ email: res.email, com: data.robj })
                 })
@@ -58,8 +59,7 @@ const sendMssg = (data) => {
 }
 
 exports.make_compliant = (req, res, next) => {
-    console.log(req.userData);
-
+    //console.log(req.userData);
     Student.findOne({ _sid: req.userData.userId }, 'hostel', (er, sdocs) => {
         if (sdocs) {
             const newCom = new Complaint({
@@ -89,7 +89,7 @@ exports.make_compliant = (req, res, next) => {
 }
 
 exports.cancel_complaint = (req, res, next) => {
-    console.log('hello');
+    //console.log('hello');
     Complaint.findOneAndDelete({ _id: req.body.comid, sid: req.userData.userId }, (err, docs) => {
         if (err)
             return res.status(500).json({ error: { message: "unable to cancel complaint request" } });

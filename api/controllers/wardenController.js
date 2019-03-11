@@ -7,9 +7,9 @@ const Hostel = require('../models/hostel');
 const fs = require('fs');
 
 exports.add_parent = (req, res, next) => {
-    console.log(req.file);
+    //console.log(req.file);
     User.findOne({ username: req.body.sroll }, (err, sdocs) => {
-        console.log(sdocs);
+        //console.log(sdocs);
         if (sdocs) {
             const par = new Parent({
                 _id: new mongoose.Types.ObjectId(),
@@ -35,7 +35,7 @@ exports.add_parent = (req, res, next) => {
 }
 
 exports.get_parents = (req, res, next) => {
-    console.log(req.body.sroll);
+    //console.log(req.body.sroll);
     Student.findOne({ rollno: req.body.sroll }, (err, sdocs) => {
         if (sdocs) {
             Parent.find({ srollNo: sdocs.rollno }, (er, pdocs) => {
@@ -80,7 +80,7 @@ exports.get_data = (req, res, next) => {
 exports.delete_parent = (req, res, next) => {
     Parent.findOneAndDelete({_id:req.body.pid},(er,docs)=>{
         if(docs){
-            console.log(docs);
+            //console.log(docs);
             fs.unlink('./public/parents/'+docs.photo,()=>{
                 res.status(200).json({'success':'Deleted parent'});
             })
