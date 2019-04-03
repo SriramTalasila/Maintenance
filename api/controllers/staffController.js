@@ -105,7 +105,7 @@ exports.close_req = (req, res, next) => {
 }
 
 exports.get_complaints = (req, res, next) => {
-    staff.findOne({ _staffid: req.userData.userId }, 'section', (err, sdocs) => {
+    staff.findOne({ _staffid: req.userData.userId ,isClosed:false}, 'section', (err, sdocs) => {
         if (sdocs) {
             Complaint.find({ section: sdocs.section }, (cer, cdocs) => {
                 Hostel.find({}, (er, docs) => {

@@ -146,7 +146,7 @@ exports.add_staff = (req, res, next) => {
 }
 
 exports.get_complaints = (req, res, next) => {
-    Complaints.find({}, (err, result) => {
+    Complaints.find({isClosed:false},(err, result) => {
         if (result) {
             let hstls = {};
             Hostel.find({}, (er, docs) => {
